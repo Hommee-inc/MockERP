@@ -1,2 +1,2 @@
 # MockERP
-Synthetic ERP environment with fake data and controlled data-quality issues, for practicing data engineering and analytics on a realistic scenario.
+A synthetic environment that simulates the core of an ERP system (quotes, sales, returns, inventory and receivables), generating fake data end to end along with intentional, documented data-quality issues (duplicates, inconsistencies, invalid relationships, mismatched documents). It's meant to be a reusable practice lab for people studying data engineering, data analysis and BI, without needing access to real production data.
