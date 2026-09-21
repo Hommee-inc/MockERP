@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import random
-from collections.abc import Callable
+from collections.abc import Callable, MutableMapping
 from datetime import datetime, timezone
 
 from mockerp.providers import (
@@ -13,6 +13,8 @@ from mockerp.providers import (
     FakerProvider,
     NameProvider,
 )
+
+from .config import validate_config
 
 
 class CustomerGenerator:
@@ -40,10 +42,16 @@ class CustomerGenerator:
         self._rng = rng or random.Random()
         self._clock = clock or (lambda: datetime.now(timezone.utc))
 
-    def generate(self, customer_id: int) -> dict[str, object]:
+    def generate(
+        self,
+        config: MutableMapping[str, object],
+        customer_id: int,
+    ) -> dict[str, object]:
         """Generate one customer record with a stable ERP-shaped schema."""
         if customer_id < 1:
             raise ValueError("customer_id must be greater than zero")
+
+        validate_config(config)
 
         name = self._name_provider.name()
         address = self._address_provider.address()
@@ -51,28 +59,30 @@ class CustomerGenerator:
         return {
             "customer_id": customer_id,
             "name": name,
-            "document": self._document_provider.cpf(),
+            "document": self._document_provider.document("cpf"),
             "email": self._email_provider.email(name),
-            "city": address["city"],
-            "state": address["state"],
+            "address": address,
             "created_at": self._clock(),
             "status": self._rng.choice(("ACTIVE", "INACTIVE")),
         }
 
 
 def generate_customer(
+    config: MutableMapping[str, object],
     customer_id: int,
     *,
     provider: FakerProvider | None = None,
-    seed: int | None = None,
 ) -> dict[str, object]:
-    """Generate one customer using the default Brazilian Faker provider."""
-    faker_provider = provider or FakerProvider(seed=seed)
+    """Generate one customer using the configuration object."""
+    locale = str(config.get("locale", "pt_BR"))
+    seed = config.get("seed")
+    faker_seed = seed if isinstance(seed, int) else None
+    faker_provider = provider or FakerProvider(locale=locale, seed=faker_seed)
     generator = CustomerGenerator(
         faker_provider,
         faker_provider,
         faker_provider,
         faker_provider,
-        rng=random.Random(seed),
+        rng=random.Random(faker_seed),
     )
-    return generator.generate(customer_id)
+    return generator.generate(config, customer_id)

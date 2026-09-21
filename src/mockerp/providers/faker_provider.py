@@ -18,34 +18,47 @@ class FakerProvider(
     PhoneProvider,
     DocumentProvider,
 ):
-    """Implement MockERP provider contracts with Faker's Brazilian locale."""
+    """Implement MockERP provider contracts with Faker."""
 
-    def __init__(self, seed: int | None = None) -> None:
-        self._faker = Faker("pt_BR")
+    def __init__(self, locale: str = "pt_BR", seed: int | None = None) -> None:
+        self.fake = Faker(locale)
         if seed is not None:
-            self._faker.seed_instance(seed)
+            self.fake.seed_instance(seed)
 
-    def name(self) -> str:
-        return self._faker.name()
+    def name(self, name_type: str = "person") -> str:
+        if name_type == "person":
+            return self.fake.name()
+        if name_type == "company":
+            return self.fake.company()
+        raise ValueError(f"Unsupported name type: {name_type}")
 
     def email(self, name: str | None = None) -> str:
-        return self._faker.email() if name is None else self._faker.email(name=name)
+        return self.fake.email() if name is None else self.fake.email(name=name)
 
-    def address(self) -> dict[str, str | None]:
+    def address(self) -> dict[str, str]:
         return {
-            "street": self._faker.street_name(),
-            "number": self._faker.building_number(),
-            "neighborhood": self._faker.bairro(),
-            "city": self._faker.city(),
-            "state": self._faker.estado_sigla(),
-            "postal_code": self._faker.postcode(),
+            "street": self.fake.street_name(),
+            "postal_code": self.fake.postcode(),
+            "city": self.fake.city(),
+            "state": self.fake.estado_sigla(),
+            "district": self.fake.bairro(),
+            "country": self.fake.current_country(),
         }
 
     def phone(self) -> str:
-        return self._faker.phone_number()
+        return self.fake.phone_number()
 
-    def cpf(self) -> str:
-        return self._faker.cpf()
+    def document(self, document_type: str) -> str:
+        if document_type == "cpf":
+            return self.fake.cpf()
 
-    def cnpj(self) -> str:
-        return self._faker.cnpj()
+        if document_type == "cnpj":
+            return self.fake.cnpj()
+
+        if document_type == "rg":
+            return self.fake.numerify("##.###.###-#")
+
+        if document_type == "state_registration":
+            return self.fake.numerify("########-##")
+
+        raise ValueError(f"Unsupported document type: {document_type}")

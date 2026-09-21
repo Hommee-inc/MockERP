@@ -17,15 +17,14 @@ def test_customer_generator_returns_v01_customer_schema() -> None:
         clock=lambda: created_at,
     )
 
-    customer = generator.generate(1)
+    customer = generator.generate({"data_quality_mode": "clean"}, 1)
 
     assert set(customer) == {
         "customer_id",
         "name",
         "document",
         "email",
-        "city",
-        "state",
+        "address",
         "created_at",
         "status",
     }
@@ -40,4 +39,12 @@ def test_customer_id_must_be_positive() -> None:
     generator = CustomerGenerator(provider, provider, provider, provider)
 
     with pytest.raises(ValueError, match="greater than zero"):
-        generator.generate(0)
+        generator.generate({"data_quality_mode": "clean"}, 0)
+
+
+def test_customer_generator_rejects_unknown_data_quality_mode() -> None:
+    provider = FakerProvider(seed=7)
+    generator = CustomerGenerator(provider, provider, provider, provider)
+
+    with pytest.raises(ValueError, match="data_quality_mode"):
+        generator.generate({"data_quality_mode": "unknown"}, 1)
