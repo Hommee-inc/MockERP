@@ -145,18 +145,19 @@ all validation at once.
 
 The roadmap is intentionally incremental:
 
-1. **v0.1 — Commercial core:** budgets, sales, and returns.
-2. **v0.2 — Inventory:** stock entries, exits, and traceable movements.
-3. **v0.3 — Finance:** accounts receivable, payments, and refunds.
-4. **v0.4 — Integration:** cross-module consistency checks.
-5. **v0.5 — Controlled errors:** duplicates, invalid relationships, and
+1. **v0.1 — Foundation:** registrations, providers, and customer generation.
+2. **v0.2 — Commercial core:** budgets, sales, and returns.
+3. **v0.3 — Inventory:** stock entries, exits, and traceable movements.
+4. **v0.4 — Finance:** accounts receivable, payments, and refunds.
+5. **v0.5 — Integration:** cross-module consistency checks.
+6. **v0.6 — Controlled errors:** duplicates, invalid relationships, and
    document mismatches applied on top of a clean dataset.
-6. **v1.x — Databricks platform:** Bronze, Silver, Gold, incremental ingestion,
+7. **v1.x — Databricks platform:** Bronze, Silver, Gold, incremental ingestion,
    schema evolution, merges, history, and orchestration.
-7. **v2.0 — Public lab:** reusable scenarios, documentation, and a final
+8. **v2.0 — Public lab:** reusable scenarios, documentation, and a final
    dashboard.
 
-See [`docs/Roadmap/00-merp-overview.md`](docs/Roadmap/00-merp-overview.md) for
+See [`docs/Roadmap/00-mockerp-overview.md`](docs/Roadmap/00-mockerp-overview.md) for
 the full plan.
 
 ## Databricks note

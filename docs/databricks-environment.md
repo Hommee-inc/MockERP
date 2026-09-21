@@ -13,7 +13,7 @@ For a standard Serverless notebook:
 2. Add this project directory as a dependency:
 
    ```text
-   /Workspace/Users/alex.gerson.ti@gmail.com/MockERP
+   /Workspace/Users/<your-databricks-user>/MockERP
    ```
 
 3. Apply the environment and restart Python when Databricks requests it.
@@ -26,6 +26,10 @@ For a standard Serverless notebook:
 Databricks reads the root `pyproject.toml`, installs `mockerp`, and resolves
 `Faker` from the declared dependencies. The notebook should not contain a
 repeated `%pip install` command or a `sys.path` modification.
+
+On Serverless, `%pip install` is notebook-scoped and does not create a shared
+cluster-level installation. Free Edition does not provide the classic
+cluster-library or init-script workflow, so use the Environment panel instead.
 
 ## Git Folder Serverless
 

@@ -2,3 +2,7 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+
+# Local agent instructions and skills are not part of the public project.
+/AGENTS.md
+/skills/
