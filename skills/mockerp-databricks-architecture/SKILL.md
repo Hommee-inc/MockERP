@@ -61,8 +61,13 @@ about locally.
 ## Dependency policy
 
 - Declare Python dependencies in `pyproject.toml`.
-- `%pip install` may be used for temporary Free Edition development.
-- Do not make repeated notebook installation the permanent package strategy.
+- For Serverless notebooks, configure the project directory in the Databricks
+  Environment side panel so the environment resolves `pyproject.toml` once.
+- For Git Folder Serverless, use the root `pyproject.toml` environment shared by
+  the Git Folder.
+- For Jobs, configure the project or built wheel as a task dependency.
+- `%pip install` may be used only as a temporary fallback during development.
+- Never make repeated notebook installation the permanent package strategy.
 - Keep the package runnable and testable outside the Databricks runtime.
 
 ## Required output for architecture changes

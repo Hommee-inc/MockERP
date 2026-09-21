@@ -81,6 +81,9 @@ dependency injection.
 - Keep Python dependencies in `pyproject.toml`.
 - `%pip install` is acceptable for temporary Free Edition development, but not
   as the permanent dependency strategy for production notebooks.
+- Prefer the Databricks Environment side panel, Git Folder Serverless
+  `pyproject.toml` environment, or Job dependency configuration for one-time
+  package resolution.
 - Keep shared code in `src/mockerp/`, never only in notebook cells.
 - Run `python -m compileall -q src tests` and `pytest tests/ -v` when possible.
 - If a dependency is unavailable, document the limitation; do not remove tests.

@@ -7,6 +7,9 @@ guidelines define how data must relate.
 The authoritative entity-generation model is defined in
 [`sot/entity-generation.md`](sot/entity-generation.md).
 
+The one-time Databricks dependency setup is defined in
+[`databricks-environment.md`](databricks-environment.md).
+
 ## Execution context
 
 The current target is **Databricks Free Edition**. The project follows

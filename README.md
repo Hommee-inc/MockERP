@@ -13,6 +13,10 @@ model.
 
 Project-local operational skills are documented in [skills/README.md](skills/README.md).
 
+See [docs/databricks-environment.md](docs/databricks-environment.md) for the
+one-time Databricks environment setup. Notebooks should not reinstall the
+project on every execution.
+
 ## Platform context
 
 MockERP targets Databricks Free Edition. The project uses production-style
