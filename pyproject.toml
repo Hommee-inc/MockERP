@@ -17,3 +17,6 @@ where = ["src"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
+
+[tool.databricks.environment]
+environment_version = '5'

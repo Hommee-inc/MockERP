@@ -6,3 +6,6 @@ __pycache__/
 # Local agent instructions and skills are not part of the public project.
 /AGENTS.md
 /skills/
+
+# Build artifacts
+*.egg-info/

@@ -56,9 +56,9 @@ class FakerProvider(
             return self.fake.cnpj()
 
         if document_type == "rg":
-            return self.fake.numerify("##.###.###-#")
+            return self.fake.numerify("#########")
 
         if document_type == "state_registration":
-            return self.fake.numerify("########-##")
+            return self.fake.numerify("##########")
 
         raise ValueError(f"Unsupported document type: {document_type}")
